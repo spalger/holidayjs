@@ -1,8 +1,15 @@
 $(function () {
-  var $container = $('#editor');
+
+  $("#editor-shapes").owlCarousel({
+    items: 5,
+    itemsDesktop: [1199, 10],
+    itemsDesktopSmall: [979, 5]
+  });
+
+  var $canvas = $('#editor-canvas');
   var canvas = new fabric.Canvas('editor-canvas', {
-    width: $container.width(),
-    height: $container.height(),
+    width: $canvas.width(),
+    height: $canvas.height(),
   });
 
   // create a rectangle with angle=45

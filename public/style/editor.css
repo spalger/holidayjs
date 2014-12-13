@@ -49,3 +49,11 @@ body {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
+#editor-shapes .owl-item {
+  text-align: center;
+}
+#editor-shapes .owl-item img {
+  display: block;
+  padding: 0px 5px;
+  height: 100px;
+}
