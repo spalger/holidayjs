@@ -4,6 +4,7 @@
   "description": "HolidayJS Hackathon",
   "repository": "https://github.com/spenceralger/holidayjs",
   "dependencies": {
+    "aws-sdk": "~2.1.1",
     "dotenv": "^0.2.8",
     "express": "~3.3.8",
     "express-jwt": "0.2.1",
