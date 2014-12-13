@@ -35,11 +35,13 @@ app.get('/ping', function(req, res) {
   res.send(200, {text: "All good. You don't need to be authenticated to call this"});
 });
 
+s3.listObjects({Bucket : 'sweater-designer'}, function(err, data) {
+  console.log(err, data);
+})
 
-s3.getBucket({Bucket: 'sweater-designer', Key: 'holiday1.png'}, function (err, data) {
+s3.getObject({Bucket: 'sweater-designer', Key: 'holiday1.png'}, function (err, data) {
 	console.log(err, data);
 });
-
 
 
 //app.post('/image-upload', function (req, res) {
