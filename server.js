@@ -6,6 +6,7 @@ var s3 = new AWS.S3();
 var _ = require('lodash');
 
 var http = require('http');
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var jwt = require('express-jwt');
@@ -51,11 +52,53 @@ app.get('/get-sweaters', function(req, res) {
 });
 
 
-//app.post('/image-upload', function (req, res) {
-//   s3.uploadImage(req.body, function (newImageUrl`) {
-//     res.send(newImageUrl);
-//   });
-//});
+// Write Base64 to File
+var data = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA..kJggg==';
+
+function decodeBase64Image(dataString) {
+  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+    response = {};
+
+  if (matches.length !== 3) {
+    return new Error('Invalid input string');
+  }
+
+  response.type = matches[1];
+  response.data = new Buffer(matches[2], 'base64');
+
+  return response;
+}
+
+var imageBuffer = decodeBase64Image(data);
+console.log(imageBuffer);
+fs.writeFile('holiday.png', imageBuffer.data, function(err) { 
+  if (err) throw err;
+    console.log('It\'s saved!');
+});
+
+
+function stripBase64(base64File) {
+  var index =  stripBase64.indexOf(';') + 1;
+  return stripBase64.substring(index);		
+}
+
+app.post('/image-upload', function (req, res) {
+   //s3.putObject(req.body, function (newImageUrl`) {
+   //  res.send(newImageUrl);
+   //});
+
+  var params = {Bucket: 'sweater-designer', Key: 'myKey', Body: stripBase64(req.body)};
+
+  s3.putObject(params, function(err, data) {
+    if (err) {
+      console.log(err);
+    }		
+    else {       
+      console.log("Successfully uploaded data to myBucket/myKey");   
+    }
+  });
+
+});
 
 app.get('/secured/ping', function(req, res) {
   res.send(200, {text: "All good. You only get this message if you're authenticated"});
