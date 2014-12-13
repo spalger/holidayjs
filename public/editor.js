@@ -67,8 +67,28 @@ $(function () {
     if (newState === knownState) return;
 
     try {
-      var parse = JSON.parse(newState);
-      canvas.loadFromJSON(newState);
+      var state = JSON.parse(newState);
+      var curState = canvas.getObjects();
+      var bySrc = _.groupBy(curState, function (obj) {
+        return obj.getSrc();
+      });
+
+      state.objects.forEach(function (obj) {
+        var cur = (bySrc[obj.src] || []).pop();
+        if (!cur) {
+          fabric.Image.fromURL(obj.src, function(img) {
+            img.set({width: canvas.width, height: canvas.height, originX: 'left', originY: 'top'});
+            canvas.add(img, canvas.renderAll.bind(canvas));
+          });
+        }
+
+        obj.set(obj);
+      });
+
+      _.forOwn(bySrc, function (obj) {
+        obj.remove();
+      });
+
       canvas.renderAll();
     } catch (e) {
       console.log(e);
