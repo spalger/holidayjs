@@ -71,7 +71,7 @@ function decodeBase64Image(dataString) {
 
 var imageBuffer = decodeBase64Image(data);
 console.log(imageBuffer);
-fs.writeFile('holiday.png', imageBuffer.data, function(err) { 
+fs.writeFile('holiday.png', imageBuffer.data, function(err) {
   if (err) throw err;
     console.log('It\'s saved!');
 });
@@ -79,7 +79,7 @@ fs.writeFile('holiday.png', imageBuffer.data, function(err) {
 
 function stripBase64(base64File) {
   var index =  stripBase64.indexOf(';') + 1;
-  return stripBase64.substring(index);		
+  return stripBase64.substring(index);
 }
 
 app.post('/image-upload', function (req, res) {
@@ -87,14 +87,16 @@ app.post('/image-upload', function (req, res) {
    //  res.send(newImageUrl);
    //});
 
-  var params = {Bucket: 'sweater-designer', Key: 'myKey', Body: stripBase64(req.body)};
+  var random = _.random(1, 100000000);
+
+  var params = {Bucket: 'sweater-designer', Key: 'myKey-' + random, Body: stripBase64(req.body)};
 
   s3.putObject(params, function(err, data) {
     if (err) {
       console.log(err);
-    }		
-    else {       
-      console.log("Successfully uploaded data to myBucket/myKey");   
+    }
+    else {
+      console.log("Successfully uploaded data to myBucket/myKey");
     }
   });
 
