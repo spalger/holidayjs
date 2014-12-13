@@ -9,18 +9,24 @@ $(function () {
   var $canvas = $('#editor-canvas');
   var canvas = new fabric.Canvas('editor-canvas', {
     width: $canvas.width(),
-    height: $canvas.height(),
+    height: $canvas.height()
   });
 
-  // create a rectangle with angle=45
-  var rect = new fabric.Rect({
-    left: 100,
-    top: 100,
-    fill: 'red',
-    width: 100,
-    height: 100,
-    angle: 45
+  fabric.Image.fromURL('/images/sweater.png', function(img) {
+    img.set({width: canvas.width, height: canvas.height, originX: 'left', originY: 'top'});
+    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
   });
 
-  canvas.add(rect);
+  $('#editor-shapes').on('click', '.owl-item img', function () {
+    var $el = $(this);
+
+    var img = new fabric.Image($el.get(0), {
+      left: (canvas.width / 2) - (150 / 2),
+      top: (canvas.height / 2) - (150 / 2),
+      width: 150,
+      height: 150,
+    });
+
+    canvas.add(img);
+  });
 });
