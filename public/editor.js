@@ -24,10 +24,15 @@ $(function () {
     });
     var jpgData = jpgDataUrl.replace(/^data\:image\/jpeg\;base64\,/, '');
 
-    $('#image-thing').val(jpgData);
-    console.log($('#image-thing').val());
-    debugger;
-    $('form').submit();
+    // $('#image-thing').val(jpgData);
+    // console.log($('#image-thing').val());
+    // debugger;
+    // $('form').submit();
+
+    $.post('/image-upload', jpgData, function () {
+      alert('saved');
+          $('#image-thing').val(jpgData);
+     }, 'text');
   });
 
   $('#editor-shapes').on('click', '.owl-item img', function () {
