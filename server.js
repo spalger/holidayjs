@@ -22,6 +22,7 @@ app.configure(function () {
 
   app.use('/secured', authenticate);
   app.use(express.static(rel('public')));
+  app.use('/bower_components', express.static(rel('bower_components')));
 
   app.use(app.router);
 });

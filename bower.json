@@ -1,0 +1,10 @@
+{
+  "name": "holidayjs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/spenceralger/holidayjs",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "fabric": "~1.4.13"
+  }
+}
