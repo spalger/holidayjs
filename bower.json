@@ -5,6 +5,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "fabric": "~1.4.13"
+    "fabric": "~1.4.13",
+    "lodash": "~2.4.1"
   }
 }
