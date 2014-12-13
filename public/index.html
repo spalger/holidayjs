@@ -27,7 +27,21 @@
     <script type="text/javascript" src="home/home.js"></script>
     <script type="text/javascript" src="login/login.js"></script>
 
-    <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
+    <script src='https://cdn.firebase.com/js/client/2.0.6/firebase.js'></script>
+    <script type="text/javascript">
+        var myFirebaseRef = new Firebase("https://popping-heat-6667.firebaseio.com");
+
+        var sweaterState = [];
+
+        function updateSweater(sweaterState) {
+            myFirebaseRef.set(sweaterState);
+        }
+
+        myFirebaseRef.on("value", function(snapshot) {
+            sweaterState = snapshot.val();
+            console.log(sweaterState);
+        });
+    </script>
 
     <style type="text/css">
         .canvas-container {

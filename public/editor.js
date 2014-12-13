@@ -17,14 +17,12 @@ $(function () {
   });
 
   $('#editor-controls-save').click(function () {
-    var pngDataUrl = canvas.toDataURL({
+    var jpgDataUrl = canvas.toDataURL({
       format: 'jpeg',
       quality: 0.8
     });
-
-    var pngData = pngDataUrl.replace(/^data\:image\/jpeg\;base64\,/, '');
-
-    $.post('/image-upload', pngData, function () {
+    var jpgData = jpgDataUrl.replace(/^data\:image\/jpeg\;base64\,/, '');
+    $.post('/image-upload', jpgData, function () {
       alert('saved');
     }, 'text');
   });
