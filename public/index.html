@@ -27,11 +27,26 @@
     <script type="text/javascript" src="home/home.js"></script>
     <script type="text/javascript" src="login/login.js"></script>
 
+    <style type="text/css">
+        .canvas-container {
+            border: 1px solid;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+
+        #footer {
+            margin-top: 30px;
+        }
+    </style>
+
   </head>
   <body>
     <div class="container" ng-view>
         <h2>Help Us Build Our Ugly Sweater</h2>
-        <canvas id='ugly-sweater'></canvas>
+        <div class="canvas-container">
+            Canvas Here
+        </div>
 
         <div id="footer">
             <a href="/about.html">About The Devs</a>
