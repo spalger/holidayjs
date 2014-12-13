@@ -32,6 +32,12 @@ app.get('/ping', function(req, res) {
   res.send(200, {text: "All good. You don't need to be authenticated to call this"});
 });
 
+app.post('/image-upload', function (req, res) {
+  s3.uploadImage(req.body, function (newImageUrl) {
+    res.send(newImageUrl);
+  });
+});
+
 app.get('/secured/ping', function(req, res) {
   res.send(200, {text: "All good. You only get this message if you're authenticated"});
 });
