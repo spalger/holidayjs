@@ -8,6 +8,7 @@
     "dotenv": "^0.2.8",
     "express": "~3.3.8",
     "express-jwt": "0.2.1",
+    "lodash": "^2.4.1",
     "strong-agent": "~1.1.2"
   },
   "engines": {

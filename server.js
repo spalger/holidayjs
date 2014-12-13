@@ -3,6 +3,8 @@ var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: 'AKIAITKO2CTUN6WMLYJQ', secretAccessKey: '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'});
 var s3 = new AWS.S3();
 
+var _ = require('lodash');
+
 var http = require('http');
 var express = require('express');
 var app = express();
@@ -35,12 +37,17 @@ app.get('/ping', function(req, res) {
   res.send(200, {text: "All good. You don't need to be authenticated to call this"});
 });
 
-s3.listObjects({Bucket : 'sweater-designer'}, function(err, data) {
-  console.log(err, data);
-})
+app.get('/get-sweaters', function(req, res) {
+  s3.listObjects({Bucket : 'sweater-designer'}, function(err, data) {
+    var imageNames = [];
+    _.each(data.Contents, function(image) {
+      imageNames.push(image.Key);
+    });
 
-s3.getObject({Bucket: 'sweater-designer', Key: 'holiday1.png'}, function (err, data) {
-	console.log(err, data);
+    console.log(imageNames);
+
+    res.send(200, { images : imageNames });
+  });
 });
 
 
