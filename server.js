@@ -1,4 +1,7 @@
 require('strong-agent');
+var AWS = require('aws-sdk');
+AWS.config.update({accessKeyId: 'AKIAITKO2CTUN6WMLYJQ', secretAccessKey: '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'});
+var s3 = new AWS.S3();
 
 var http = require('http');
 var express = require('express');
@@ -32,11 +35,18 @@ app.get('/ping', function(req, res) {
   res.send(200, {text: "All good. You don't need to be authenticated to call this"});
 });
 
-// app.post('/image-upload', function (req, res) {
+
+s3.getBucket({Bucket: 'sweater-designer', Key: 'holiday1.png'}, function (err, data) {
+	console.log(err, data);
+});
+
+
+
+//app.post('/image-upload', function (req, res) {
 //   s3.uploadImage(req.body, function (newImageUrl`) {
 //     res.send(newImageUrl);
 //   });
-// });
+//});
 
 app.get('/secured/ping', function(req, res) {
   res.send(200, {text: "All good. You only get this message if you're authenticated"});
