@@ -1,5 +1,5 @@
-$(function () {
-  $("#editor-shapes").owlCarousel({
+$(window).on('load', function () {
+  $('#editor-shapes').owlCarousel({
     items: 5,
     itemsDesktop: [1199, 10],
     itemsDesktopSmall: [979, 5]
@@ -27,6 +27,10 @@ $(function () {
     }, 'text');
   });
 
+  $('#editor-controls-clear').click(function () {
+    canvas.clear().renderAll();
+  });
+
   $('#editor-shapes').on('click', '.owl-item img', function () {
     var $el = $(this);
 
@@ -38,5 +42,34 @@ $(function () {
     });
 
     canvas.add(img);
+    canvas.renderAll();
   });
+
+  canvas.on('object:modified', saveState);
+  canvas.on('object:added', saveState);
+  canvas.on('object:removed', saveState);
+
+  var myFirebaseRef = new Firebase('https://popping-heat-6667.firebaseio.com/canvasState');
+  myFirebaseRef.on('value', function (snapshot) {
+    onStateUpdate(snapshot.val());
+  });
+
+  var knownState;
+
+  function onStateUpdate(newState) {
+    if (newState === knownState) return;
+
+    try {
+      var parse = JSON.parse(newState);
+      canvas.loadFromJSON(newState);
+      canvas.renderAll();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function saveState() {
+    knownState = JSON.stringify(canvas);
+    myFirebaseRef.set(knownState);
+  }
 });
