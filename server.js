@@ -61,8 +61,9 @@ app.get('/get-sweaters', function(req, res) {
 app.post('/image-upload', function (req, res, next) {
   console.log(req.body);
   console.log('starting upload');
+  var body = new Buffer(req.body, 'base64');
   client.putBuffer(
-    new Buffer(req.body, 'base64'),
+    body,
     '/try2-' + uuid.v4() + '.jpg',
     { 'Content-Type': 'image/jpeg', 'x-amz-acl': 'public-read' },
     function(err) {
@@ -70,7 +71,8 @@ app.post('/image-upload', function (req, res, next) {
         console.log(err);
         next(err);
       } else {
-        res.json({ success: true });
+        res.type('image/jpeg');
+        res.end(body);
       }
     }
   );

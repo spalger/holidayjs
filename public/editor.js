@@ -1,4 +1,4 @@
-$(window).on('load', function () {
+$(function () {
   $('#editor-shapes').owlCarousel({
     items: 5,
     itemsDesktop: [1199, 10],
@@ -7,8 +7,8 @@ $(window).on('load', function () {
 
   var $canvas = $('#editor-canvas');
   var canvas = new fabric.Canvas('editor-canvas', {
-    width: $canvas.width(),
-    height: $canvas.height() - 200
+    width: 400,
+    height: 750
   });
 
   fabric.Image.fromURL('/images/sweater.png', function(img) {
@@ -17,7 +17,6 @@ $(window).on('load', function () {
   });
 
   $('#editor-controls-save').click(function () {
-
     var jpgDataUrl = canvas.toDataURL({
       format: 'jpeg',
       quality: 0.8

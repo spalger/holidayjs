@@ -2,7 +2,6 @@
 <html ng-controller="AppCtrl">
   <head>
     <title ng-bind="pageTitle"></title>
-
     <script type="text/javascript" src="//use.typekit.net/iws6ohy.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
@@ -17,12 +16,12 @@
     <script type="text/javascript" src="/style/jquery.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script type="text/javascript" src="/bower_components/fabric/dist/fabric.js"></script>
-  <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
-  <script type="text/javascript" src="/bower_components/lodash/dist/lodash.js"></script>
-  <script type="text/javascript" src="/owl.carousel/owl-carousel/owl.carousel.js"></script>
-  <link rel="stylesheet" href="/owl.carousel/owl-carousel/owl.carousel.css">
-  <link rel="stylesheet" href="/style/editor.css">
+    <script type="text/javascript" src="/bower_components/fabric/dist/fabric.js"></script>
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="/owl.carousel/owl-carousel/owl.carousel.js"></script>
+    <link rel="stylesheet" href="/owl.carousel/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/style/editor.css">
 
     <script src='/style/firebase.js'></script>
     <style type="text/css">
@@ -51,29 +50,28 @@
         </form>
         <h2>Help Us Build Our Ugly Sweater</h2>
         <div class="canvas-container">
-            <div id="editor">
-                <canvas id="editor-canvas"></canvas>
-                <div id="editor-controls">
-                  <button id="editor-controls-save button">Save</button>
-                </div>
-                <div id="editor-shapes">
-                  <img src="/images/holiday1.png">
-                  <img src="/images/holiday2.png">
-                  <img src="/images/holiday3.png">
-                  <img src="/images/holiday4.png">
-                  <img src="/images/holiday5.png">
-                  <img src="/images/Snowman_icon.png">
-                  <img src="/images/tux-jedi-starwars.png">
-                  <img src="/images/gift.png">
-                  <img src="/images/elf.png">
-
-                </div>
-              </div>
-              <script src="/editor.js"></script>
+          <div id="editor">
+            <canvas id="editor-canvas"></canvas>
+            <div id="editor-controls">
+              <button id="editor-controls-save" class="button">Save</button>
+            </div>
+            <div id="editor-shapes">
+              <img src="/images/holiday1.png">
+              <img src="/images/holiday2.png">
+              <img src="/images/holiday3.png">
+              <img src="/images/holiday4.png">
+              <img src="/images/holiday5.png">
+              <img src="/images/Snowman_icon.png">
+              <img src="/images/tux-jedi-starwars.png">
+              <img src="/images/gift.png">
+              <img src="/images/elf.png">
+            </div>
+          </div>
+          <script src="/editor.js"></script>
         </div>
 
         <div id="footer">
-            <a href="/sweaters.html">See Saved Sweaters</a> | <a href="/about.html">About The Devs</a>
+          <a href="/sweaters.html">See Saved Sweaters</a> | <a href="/about.html">About The Devs</a>
         </div>
     </div>
   </body>
