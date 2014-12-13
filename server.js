@@ -59,6 +59,7 @@ app.get('/get-sweaters', function(req, res) {
 });
 
 app.post('/image-upload', function (req, res, next) {
+  console.log(req.body);
   console.log('starting upload');
   client.putBuffer(
     new Buffer(req.body, 'base64'),
@@ -73,7 +74,6 @@ app.post('/image-upload', function (req, res, next) {
       }
     }
   );
-
 });
 
 app.get('/secured/ping', function(req, res) {

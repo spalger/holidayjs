@@ -17,14 +17,17 @@ $(function () {
   });
 
   $('#editor-controls-save').click(function () {
+
     var jpgDataUrl = canvas.toDataURL({
       format: 'jpeg',
       quality: 0.8
     });
     var jpgData = jpgDataUrl.replace(/^data\:image\/jpeg\;base64\,/, '');
-    $.post('/image-upload', jpgData, function () {
-      alert('saved');
-    }, 'text');
+
+    $('#image-thing').val(jpgData);
+    console.log($('#image-thing').val());
+    debugger;
+    $('form').submit();
   });
 
   $('#editor-shapes').on('click', '.owl-item img', function () {
