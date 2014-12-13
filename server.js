@@ -77,8 +77,14 @@ app.post('/image-upload', function (req, res) {
    //});
 
   var random = _.random(1, 100000000);
-  var body = new Buffer(req.body, 'base64');
-  var params = {Bucket: 'sweater-designer', Key: 'myKey-' + uuid.v4() + '.jpg', Body: body,
+  var body = new Buffer(req.body, 'binary');
+  console.log(body);
+  var params = {
+    Bucket: 'sweater-designer',
+    Key: 'myKey-' + uuid.v4() + '.jpg',
+    Body: body,
+    ContentType : 'image/jpeg',
+    ContentEncoding : 'base64',
     ACL:'public-read',
   };
 

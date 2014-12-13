@@ -44,14 +44,13 @@
 
     <script type="text/javascript">
         function getImages() {
-                $.get( "/get-sweaters", function( data ) {
-                    $('.sweater-container').html('');
-                  data.images.forEach(function(imageName) {
+            $.get( "/get-sweaters", function( data ) {
+                $('.sweater-container').html('');
+              data.images.forEach(function(imageName) {
 
-                    $('.sweater-container').append('<div class="sweater"><img src="http://sweater-designer.s3.amazonaws.com/' + imageName + '" width="100" /></div>');
-                  });
-                });
-
+                $('.sweater-container').append('<div class="sweater"><img src="http://sweater-designer.s3.amazonaws.com/' + imageName + '" width="100" /></div>');
+              });
+            });
         }
 
         $(document).ready(function() {
