@@ -8,7 +8,7 @@ $(function () {
   var $canvas = $('#editor-canvas');
   var canvas = new fabric.Canvas('editor-canvas', {
     width: $canvas.width(),
-    height: $canvas.height()
+    height: $canvas.height() - 200
   });
 
   fabric.Image.fromURL('/images/sweater.png', function(img) {
