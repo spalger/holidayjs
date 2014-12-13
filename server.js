@@ -2,6 +2,7 @@ require('strong-agent');
 var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: 'AKIAITKO2CTUN6WMLYJQ', secretAccessKey: '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'});
 var s3 = new AWS.S3();
+var uuid = require('uuid');
 
 var _ = require('lodash');
 
@@ -69,18 +70,6 @@ function decodeBase64Image(dataString) {
   return response;
 }
 
-var imageBuffer = decodeBase64Image(data);
-console.log(imageBuffer);
-fs.writeFile('holiday.png', imageBuffer.data, function(err) {
-  if (err) throw err;
-    console.log('It\'s saved!');
-});
-
-
-function stripBase64(base64File) {
-  var index =  stripBase64.indexOf(';') + 1;
-  return stripBase64.substring(index);
-}
 
 app.post('/image-upload', function (req, res) {
    //s3.putObject(req.body, function (newImageUrl`) {
@@ -88,8 +77,10 @@ app.post('/image-upload', function (req, res) {
    //});
 
   var random = _.random(1, 100000000);
-
-  var params = {Bucket: 'sweater-designer', Key: 'myKey-' + random, Body: stripBase64(req.body)};
+  var body = new Buffer(req.body, 'base64');
+  var params = {Bucket: 'sweater-designer', Key: 'myKey-' + uuid.v4() + '.jpg', Body: body,
+    ACL:'public-read',
+  };
 
   s3.putObject(params, function(err, data) {
     if (err) {

@@ -43,13 +43,22 @@
     </style>
 
     <script type="text/javascript">
+        function getImages() {
+                $.get( "/get-sweaters", function( data ) {
+                    $('.sweater-container').html('');
+                  data.images.forEach(function(imageName) {
+
+                    $('.sweater-container').append('<div class="sweater"><img src="http://sweater-designer.s3.amazonaws.com/' + imageName + '" width="100" /></div>');
+                  });
+                });
+
+        }
+
         $(document).ready(function() {
-            $.get( "/get-sweaters", function( data ) {
-              data.images.forEach(function(imageName) {
-                $('.sweater-container').append('<div class="sweater"><img src="http://sweater-designer.s3.amazonaws.com/' + imageName + '" width="100" /></div>');
-              });
-            });
+            getImages();
         });
+
+        setInterval(getImages, 5000);
 
      /* http://sweater-designer.s3.amazonaws.com/ */
     </script>
