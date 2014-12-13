@@ -19,6 +19,11 @@ angular.module( 'sample', [
       controller: 'LoginCtrl',
       templateUrl: 'login/login.html',
       pageTitle: 'Login'
+    })
+    .when( '/ugly-sweater', {
+      controller: 'SweaterCtrl',
+      templateUrl: 'ugly-sweater/ugly-sweater.html',
+      pageTitle: 'Ugly Sweater'
     });
 
 
