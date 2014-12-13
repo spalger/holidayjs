@@ -11,5 +11,8 @@
   },
   "engines": {
     "node": "0.10.x"
+  },
+  "scripts": {
+    "less": "lessc public/style/editor.less --include-path=$PWD/bower_components/lesshat/build/ > public/style/editor.css"
   }
 }

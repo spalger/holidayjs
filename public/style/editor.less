@@ -1,0 +1,23 @@
+@import (reference) "lesshat.less";
+
+.flex-parent() {
+  .display(flex);
+  .flex(1 1 auto);
+  .flex-direction(column);
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  .flex-parent();
+}
+#editor {
+  .flex-parent();
+  background: black;
+
+  &-canvas {
+    .flex(1 1 auto);
+  }
+}
