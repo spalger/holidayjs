@@ -1,9 +1,17 @@
 require('strong-agent');
+
 var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: 'AKIAITKO2CTUN6WMLYJQ', secretAccessKey: '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'});
 var s3 = new AWS.S3();
-var uuid = require('uuid');
 
+var knox = require('knox');
+var client = knox.createClient({
+  key: 'AKIAITKO2CTUN6WMLYJQ',
+  secret: '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',
+  bucket: 'sweater-designer'
+});
+
+var uuid = require('uuid');
 var _ = require('lodash');
 
 var http = require('http');
@@ -23,7 +31,7 @@ var authenticate = jwt({
 
 app.configure(function () {
   // Request body parsing middleware should be above methodOverride
-  app.use(express.bodyParser());
+  // app.use(express.bodyParser());
   app.use(express.urlencoded());
   app.use(express.json());
 
@@ -46,56 +54,25 @@ app.get('/get-sweaters', function(req, res) {
       imageNames.push(image.Key);
     });
 
-    console.log(imageNames);
-
     res.send(200, { images : imageNames });
   });
 });
 
-
-// Write Base64 to File
-var data = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA..kJggg==';
-
-function decodeBase64Image(dataString) {
-  var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-    response = {};
-
-  if (matches.length !== 3) {
-    return new Error('Invalid input string');
-  }
-
-  response.type = matches[1];
-  response.data = new Buffer(matches[2], 'base64');
-
-  return response;
-}
-
-
-app.post('/image-upload', function (req, res) {
-   //s3.putObject(req.body, function (newImageUrl`) {
-   //  res.send(newImageUrl);
-   //});
-
-  var random = _.random(1, 100000000);
-  var body = new Buffer(req.body, 'binary');
-  console.log(body);
-  var params = {
-    Bucket: 'sweater-designer',
-    Key: 'myKey-' + uuid.v4() + '.jpg',
-    Body: body,
-    ContentType : 'image/jpeg',
-    ContentEncoding : 'base64',
-    ACL:'public-read',
-  };
-
-  s3.putObject(params, function(err, data) {
-    if (err) {
-      console.log(err);
+app.post('/image-upload', function (req, res, next) {
+  console.log('starting upload');
+  client.putBuffer(
+    new Buffer(req.body, 'base64'),
+    '/try2-' + uuid.v4() + '.jpg',
+    { 'Content-Type': 'image/jpeg', 'x-amz-acl': 'public-read' },
+    function(err) {
+      if (err) {
+        console.log(err);
+        next(err);
+      } else {
+        res.json({ success: true });
+      }
     }
-    else {
-      console.log("Successfully uploaded data to myBucket/myKey");
-    }
-  });
+  );
 
 });
 
