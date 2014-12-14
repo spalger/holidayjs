@@ -13,7 +13,7 @@
       savedSweaters.on('child_added', function (initialSnap) {
         var img = document.createElement('img');
         var $container = $('<div class = "sweater">').append(img);
-        $('.sweater-container').append($container);
+        $('.sweater-container').prepend($container);
 
         var ref = savedSweaters.child(initialSnap.key());
         ref.on('value', function (snapshot) {
