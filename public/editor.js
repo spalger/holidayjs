@@ -36,6 +36,7 @@ $(function () {
 
   $('#editor-controls-clear').click(function () {
     canvas.clear().renderAll();
+    saveState();
   });
 
   $('#editor-shapes').on('click', '.owl-item img', function () {
