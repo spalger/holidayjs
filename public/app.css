@@ -1,0 +1,15 @@
+.sweater_container {
+  margin-top: 15px;
+}
+
+.sweater {
+  border-radius: 4px;
+  border: 1px solid #000;
+  padding: 10px;
+  float: left;
+  margin: 20px;
+}
+
+.clear {
+  clear: both;
+}
