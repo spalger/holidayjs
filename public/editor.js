@@ -56,7 +56,7 @@ $(function () {
   canvas.on('object:added', saveState);
   canvas.on('object:removed', saveState);
 
-  var myFirebaseRef = new Firebase('https://popping-heat-6667.firebaseio.com/canvasState');
+  var myFirebaseRef = new Firebase('https://popping-heat-6667.firebaseio.com/editorState');
   myFirebaseRef.on('value', function (snapshot) {
     onStateUpdate(snapshot.val());
   });
@@ -68,30 +68,36 @@ $(function () {
 
     try {
       var state = JSON.parse(newState);
+      if (!state || !_.isArray(state.objects)) return;
+
       var curState = canvas.getObjects();
       var bySrc = _.groupBy(curState, function (obj) {
         return obj.getSrc();
       });
 
-      state.objects.forEach(function (obj) {
+      state.objects
+      // .map(function (s) {
+      //   return _.pick(s, ['src', 'width', 'height', 'left', 'top', 'width', 'height', 'angle']);
+      // })
+      .forEach(function (obj) {
         var cur = (bySrc[obj.src] || []).pop();
-        if (!cur) {
-          fabric.Image.fromURL(obj.src, function(img) {
-            img.set({width: canvas.width, height: canvas.height, originX: 'left', originY: 'top'});
-            canvas.add(img, canvas.renderAll.bind(canvas));
-          });
-        }
+        if (cur) return cur.set(obj);
 
-        obj.set(obj);
+        var imgEl = document.createElement('img');
+        imgEl.src = obj.src;
+        var img = new fabric.Image(imgEl, obj);
+        canvas.add(img);
       });
 
-      _.forOwn(bySrc, function (obj) {
-        obj.remove();
+      _.forOwn(bySrc, function (set) {
+        set.forEach(function (obj) {
+          obj.remove();
+        });
       });
 
       canvas.renderAll();
     } catch (e) {
-      console.log(e);
+      console.log(e.stack);
     }
   }
 
