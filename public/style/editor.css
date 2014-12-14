@@ -8,6 +8,18 @@ body {
   text-align: center;
 }
 
+@media (max-width: 768px) {
+	.canvas-container {
+		-ms-transform: scale(0.70); /* IE 9 */
+	  -webkit-transform: scale(0.70); /* Chrome, Safari, Opera */
+	  transform: scale(0.70);
+	  -ms-transform-origin: 0 0;
+	  -webkit-transform-origin: 0 0;
+	  -moz-transform-origin: 0 0;
+	  transform-origin: 0 0;
+	}
+}
+
 #editor-canvas {
   position: relative !important;
 }

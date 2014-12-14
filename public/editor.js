@@ -1,9 +1,5 @@
 $(function () {
-  $('#editor-shapes').owlCarousel({
-    items: 5,
-    itemsDesktop: [1199, 10],
-    itemsDesktopSmall: [979, 5]
-  });
+  $('#editor-shapes').owlCarousel();
 
   var savedSweaters = new Firebase('https://popping-heat-6667.firebaseio.com/savedSweaters');
   var canvasObjects = new Firebase('https://popping-heat-6667.firebaseio.com/editorObjects');
@@ -11,7 +7,8 @@ $(function () {
   var $canvas = $('#editor-canvas');
   var canvas = window.editorCanvas = new fabric.Canvas('editor-canvas', {
     width: 500,
-    height: 600
+    height: 600,
+    allowTouchScrolling: true
   });
 
   var rerender = _.bindKey(canvas, 'renderTop');
@@ -51,7 +48,9 @@ $(function () {
     var ref = canvasObjects.child(key);
     var state = snapshot.val();
 
-    fabric.Image.fromURL(state.src, imgLoaded, _.omit(state, 'src'));
+    var a = document.createElement('a');
+    a.href = state.src;
+    fabric.Image.fromURL(a.pathname, imgLoaded, _.omit(state, 'src'));
 
     function imgLoaded(img) {
       canvas.add(img);
