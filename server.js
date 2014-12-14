@@ -1,5 +1,3 @@
-require('strong-agent');
-
 var AWS = require('aws-sdk');
 AWS.config.update({accessKeyId: 'AKIAITKO2CTUN6WMLYJQ', secretAccessKey: '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'});
 var s3 = new AWS.S3();

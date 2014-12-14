@@ -10,12 +10,19 @@
   <script type="text/javascript">
     var savedSweaters = new Firebase('https://popping-heat-6667.firebaseio.com/savedSweaters');
     $(document).ready(function() {
-      savedSweaters.on('value', function (sweaters) {
-        sweaters.forEach(function(sweater) {
-          var img = document.createElement('img');
-          img.src = sweater.val();
+      savedSweaters.on('child_added', function (initialSnap) {
+        var img = document.createElement('img');
+        var $container = $('<div class = "sweater">').append(img);
+        $('.sweater-container').append($container);
 
-          $('.sweater-container').append('<div class = "sweater">').append(img);
+        var ref = savedSweaters.child(initialSnap.key());
+        ref.on('value', function (snapshot) {
+          var val = snapshot.val();
+          if (val) {
+            img.src = val;
+          } else {
+            $container.remove();
+          }
         });
       });
     });
