@@ -7,8 +7,7 @@ $(function () {
   var $canvas = $('#editor-canvas');
   var canvas = window.editorCanvas = new fabric.Canvas('editor-canvas', {
     width: 500,
-    height: 600,
-    allowTouchScrolling: true
+    height: 600
   });
 
   var rerender = _.bindKey(canvas, 'renderTop');
