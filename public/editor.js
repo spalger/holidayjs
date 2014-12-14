@@ -35,8 +35,10 @@ $(function () {
   });
 
   $('#editor-controls-clear').click(function () {
-    canvas.clear().renderAll();
-    saveState();
+    canvas.getObjects().forEach(function (obj) {
+      obj.remove();
+    });
+    canvas.renderAll();
   });
 
   $('#editor-shapes').on('click', '.owl-item img', function () {
@@ -53,9 +55,10 @@ $(function () {
     canvas.renderAll();
   });
 
-  canvas.on('object:modified', saveState);
-  canvas.on('object:added', saveState);
-  canvas.on('object:removed', saveState);
+  var mod = _.debounce(saveState, 100, { leading: false, trailing: true, maxWait: 350 });
+  canvas.on('object:modified', mod);
+  canvas.on('object:added', mod);
+  canvas.on('object:removed', mod);
 
   var myFirebaseRef = new Firebase('https://popping-heat-6667.firebaseio.com/editorState');
   myFirebaseRef.on('value', function (snapshot) {
