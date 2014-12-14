@@ -7,8 +7,8 @@ $(function () {
 
   var $canvas = $('#editor-canvas');
   var canvas = new fabric.Canvas('editor-canvas', {
-    width: 400,
-    height: 750
+    width: 500,
+    height: 600
   });
 
   fabric.Image.fromURL('/images/sweater.png', function(img) {
@@ -65,6 +65,7 @@ $(function () {
 
   function onStateUpdate(newState) {
     if (newState === knownState) return;
+    knownState = newState;
 
     try {
       var state = JSON.parse(newState);
@@ -76,9 +77,6 @@ $(function () {
       });
 
       state.objects
-      // .map(function (s) {
-      //   return _.pick(s, ['src', 'width', 'height', 'left', 'top', 'width', 'height', 'angle']);
-      // })
       .forEach(function (obj) {
         var cur = (bySrc[obj.src] || []).pop();
         if (cur) return cur.set(obj);
@@ -102,7 +100,9 @@ $(function () {
   }
 
   function saveState() {
-    knownState = JSON.stringify(canvas);
+    var state = JSON.stringify(canvas);
+    if (state === knownState) return;
+    knownState = state;
     myFirebaseRef.set(knownState);
   }
 });

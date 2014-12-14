@@ -5,13 +5,13 @@ body {
   height: 100%;
 }
 #editor {
-  height: 750px;
-  width: 400px;
-  background: black;
+  height: 600px;
+  width: 500;
+  text-align: center;
 }
 
 #editor-canvas {
-
+  position: relative !important;
 }
 
 #editor-shapes .owl-item {
