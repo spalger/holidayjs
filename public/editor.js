@@ -22,10 +22,12 @@ $(function () {
   });
 
   $('#editor-controls-save').click(function () {
+    canvas.discardActiveObject();
     savedSweaters.push(canvas.toDataURL({
       format: 'jpeg',
       quality: 0.8
     }));
+    canvasObjects.remove();
   });
 
   $('#editor-controls-clear').click(function () {
