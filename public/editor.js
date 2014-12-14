@@ -5,6 +5,8 @@ $(function () {
     itemsDesktopSmall: [979, 5]
   });
 
+
+  var savedSweaters = new Firebase('https://popping-heat-6667.firebaseio.com/savedSweaters');
   var $canvas = $('#editor-canvas');
   var canvas = new fabric.Canvas('editor-canvas', {
     width: 500,
@@ -17,21 +19,10 @@ $(function () {
   });
 
   $('#editor-controls-save').click(function () {
-    var jpgDataUrl = canvas.toDataURL({
+    savedSweaters.push(canvas.toDataURL({
       format: 'jpeg',
       quality: 0.8
-    });
-    var jpgData = jpgDataUrl.replace(/^data\:image\/jpeg\;base64\,/, '');
-
-    // $('#image-thing').val(jpgData);
-    // console.log($('#image-thing').val());
-    // debugger;
-    // $('form').submit();
-
-    $.post('/image-upload', jpgData, function () {
-      alert('saved');
-          $('#image-thing').val(jpgData);
-     }, 'text');
+    }));
   });
 
   $('#editor-controls-clear').click(function () {
